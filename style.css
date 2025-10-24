@@ -10,8 +10,8 @@ html { scroll-behavior: smooth; }
 
 /* ========== DARK THEME OVERRIDES ========== */
 body.dark {
-  background: #121212;
-  color: #f1f1f1;
+  background: #ffffff;
+  color: #000000;
 }
 
 /* Перекрашиваем секции */
@@ -19,7 +19,7 @@ body.dark .hero-section,
 body.dark .projects-section,
 body.dark .about-section,
 body.dark .contact-section {
-  background: #121212 !important;
+  background: #ffffff !important;
 }
 
 /* Тексты */
@@ -35,6 +35,13 @@ body.dark .contact-subtitle-text {
 
 /* Контакты */
 body.dark .contact-email { color: #caff33; }
+
+body {
+  background: #0b0b0b; /* основной фон */
+  color: #ffffff;      /* основной цвет текста */
+  font-family: "Manrope", sans-serif;
+  line-height: 1.6;
+}
 
 /* Формы */
 body.dark .form-input,
@@ -174,7 +181,7 @@ body.dark .nav-item { color: #f1f1f1; }
 
 .hero-subtitle {
   font-size: 20px;
-  color: #bbbbbb;
+  color: #ffffff;
   margin-top: 10px;
 }
 
