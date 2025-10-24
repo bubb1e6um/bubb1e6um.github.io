@@ -81,7 +81,7 @@ window.addEventListener('load', () => {
   }
 });
 
-// Prompt for a user name (persisted) and update the hero title
+// Prompt for a user name and update the hero title
 function askAndSetHeroName() {
   const heroTitleElement = document.querySelector('.hero-title');
   if (!heroTitleElement) {
@@ -101,6 +101,13 @@ function askAndSetHeroName() {
   }
 
   heroTitleElement.textContent = `Hi, ${storedName}, I am Hideo Kojima.`;
+  const userName = window.prompt("What's your name?");
+  const trimmedName = userName ? userName.trim() : '';
+  if (trimmedName.length === 0) {
+    return;
+  }
+
+  heroTitleElement.textContent = `Hi, ${trimmedName}, I am Hideo Kojima`;
 }
 
 // Expose for manual reuse
@@ -108,52 +115,3 @@ window.askAndSetHeroName = askAndSetHeroName;
 
 // Run once on load so the title updates immediately
 askAndSetHeroName();
-
-// Handle contact form submission: save to localStorage and download as JSON
-function setupContactForm() {
-  const contactFormElement = document.querySelector('.contact-form');
-  if (!contactFormElement) {
-    return;
-  }
-
-  contactFormElement.addEventListener('submit', (event) => {
-    event.preventDefault();
-
-    const formData = new FormData(contactFormElement);
-    const submission = {
-      name: (formData.get('name') || '').toString().trim(),
-      email: (formData.get('email') || '').toString().trim(),
-      subject: (formData.get('subject') || '').toString().trim(),
-      message: (formData.get('message') || '').toString().trim(),
-      submittedAt: new Date().toISOString(),
-      userAgent: navigator.userAgent,
-    };
-
-    // Persist to localStorage (append to an array)
-    try {
-      const existingRaw = localStorage.getItem('contactSubmissions');
-      const existing = existingRaw ? JSON.parse(existingRaw) : [];
-      existing.push(submission);
-      localStorage.setItem('contactSubmissions', JSON.stringify(existing, null, 2));
-    } catch (_) {
-      localStorage.setItem('contactSubmissions', JSON.stringify([submission], null, 2));
-    }
-
-    // Also trigger a JSON file download for the single submission
-    const blob = new Blob([JSON.stringify(submission, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const downloadElement = document.createElement('a');
-    downloadElement.href = url;
-    downloadElement.download = `contact_submission_${new Date().toISOString().replace(/[:.]/g, '-')}.json`;
-    document.body.appendChild(downloadElement);
-    downloadElement.click();
-    downloadElement.remove();
-    URL.revokeObjectURL(url);
-
-    contactFormElement.reset();
-    alert('Thanks! Your information and message have been saved as JSON.');
-  });
-}
-
-// Initialize the contact form handler immediately (script is at end of body)
-setupContactForm();
