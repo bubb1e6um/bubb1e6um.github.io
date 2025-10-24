@@ -94,7 +94,7 @@ function askAndSetHeroName() {
     return;
   }
 
-  heroTitleElement.textContent = `Hi, I am ${trimmedName}`;
+  heroTitleElement.textContent = `Hi, ${trimmedName}, I am Hideo Kojima`;
 }
 
 // Expose for manual reuse
