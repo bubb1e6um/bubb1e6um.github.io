@@ -80,3 +80,25 @@ window.addEventListener('load', () => {
     if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 });
+
+// Prompt for a user name and update the hero title
+function askAndSetHeroName() {
+  const heroTitleElement = document.querySelector('.hero-title');
+  if (!heroTitleElement) {
+    return;
+  }
+
+  const userName = window.prompt("What's your name?");
+  const trimmedName = userName ? userName.trim() : '';
+  if (trimmedName.length === 0) {
+    return;
+  }
+
+  heroTitleElement.textContent = `Hi, I am ${trimmedName}`;
+}
+
+// Expose for manual reuse
+window.askAndSetHeroName = askAndSetHeroName;
+
+// Run once on load so the title updates immediately
+askAndSetHeroName();
