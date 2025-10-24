@@ -88,6 +88,19 @@ function askAndSetHeroName() {
     return;
   }
 
+  let storedName = localStorage.getItem('userName') || '';
+
+  if (!storedName) {
+    const inputName = window.prompt("What's your name?");
+    const trimmedName = inputName ? inputName.trim() : '';
+    if (trimmedName.length === 0) {
+      return; // keep default title if user cancels or leaves empty
+    }
+    storedName = trimmedName;
+    localStorage.setItem('userName', storedName);
+  }
+
+  heroTitleElement.textContent = `Hi, ${storedName}, I am Hideo Kojima.`;
   const userName = window.prompt("What's your name?");
   const trimmedName = userName ? userName.trim() : '';
   if (trimmedName.length === 0) {
