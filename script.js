@@ -110,8 +110,20 @@ function askAndSetHeroName() {
   heroTitleElement.textContent = `Hi, ${trimmedName}, I am Hideo Kojima`;
 }
 
+function countVisits() {
+  let visits = localStorage.getItem('visits') || 0;
+  visits++;
+  localStorage.setItem('visits', visits);
+
+  const heroSubtitle = document.querySelector('.hero-subtitle');
+  if (heroSubtitle) heroSubtitle.textContent = `You've visited this page ${visits} time(s).`;
+}
+
+window.addEventListener('load', countVisits);
 // Expose for manual reuse
 window.askAndSetHeroName = askAndSetHeroName;
+
+
 
 // Run once on load so the title updates immediately
 askAndSetHeroName();
